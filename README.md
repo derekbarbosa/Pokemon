@@ -1,5 +1,5 @@
-# pa4-derekbarbosa
-pa4-derekbarbosa created by GitHub Classroom
+# Pokemon
+a C++ Pokemon game created by Derek Barbosa for EC 327 with Professor Densmore
 
 first commit
 --edited slight errors in model.cpp function &  view functions when trying to determine why User Input commands "weren't doing anything" (i assumed view and model were broken)
@@ -24,4 +24,5 @@ Program works with little to no hiccups
 NOTE AS OF 12/11/19 -- for some reason, program functions completely on devices with C++11 flag ONLY (this only occurs on ENGGRID) i.e. commands do not execute properly when compiling on EngGrid without C++ 11 flag.
 
 PLEASE INCLUDE THE C++ 11 FLAG WHEN COMPILING
-thanks
+
+# Enjoy!
