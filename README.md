@@ -1,5 +1,14 @@
 # Pokemon
 a C++ Pokemon game created by Derek Barbosa for EC 327 with Professor Densmore
+This project was divided into two parts-- PA3 and PA4 (Programming Assignments 3 & 4)
+The project essentially was the culmination of all of our C++ skills, particularly with Object Oriented Programming.
+In PA3, students were required to essentially create an in-terminal "Pokemon" Game using classes that have several member functions that alter the objects "state" and "behavior," (i.e. making a pokemon move or train). This was done with using pointers to objects as well as inheritance.
+For example, the virtual base class "GameObject" is inherited by essentially all objects in the program, as every object was a "GameObject".
+After constructing all classes that were necessary for the game's function, students were required to construct the MVC (Model - View - Controller), as well as a main.cpp that took user input in a loop, executed a game command (the controller) that called a model function, and updated the viewmodel.
+In PA4, students were required to update the game with linked lists instead of using arrays (STL) so that the user could input a new command that would create a new persistent object at runtime that would be able to interact with the rest of the game (such as a new pokemon, a new gym, or a new arena/rival).
+
+below is the version history edits and problems I ran into/resolved.
+
 
 first commit
 --edited slight errors in model.cpp function &  view functions when trying to determine why User Input commands "weren't doing anything" (i assumed view and model were broken)
