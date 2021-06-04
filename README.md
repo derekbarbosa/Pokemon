@@ -35,3 +35,4 @@ NOTE AS OF 12/11/19 -- for some reason, program functions completely on devices 
 PLEASE INCLUDE THE C++ 11 FLAG WHEN COMPILING
 
 # Enjoy!
+just run 'make' and ./PA4 to run the program

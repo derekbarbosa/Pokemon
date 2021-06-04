@@ -57,39 +57,50 @@ bool PokemonGym::IsAbleToTrain(unsigned int unit_qty, double budget, unsigned in
 
 unsigned int PokemonGym::TrainPokemon(unsigned int training_units)
 {
+	unsigned int retval = 0;
+
 	if(num_training_units_remaining >= training_units)
 	{
 		num_training_units_remaining -= training_units;
 		unsigned int experience_points = num_training_units_remaining * experience_points_per_training_unit;
-		return (experience_points);
+		retval = (experience_points);
 	}
 	else if (num_training_units_remaining < training_units)
 	{
 		unsigned int experience_points = num_training_units_remaining * experience_points;
-		return experience_points;
+		retval = experience_points;
 	}
 	
+	return retval;
 }
 
 bool PokemonGym::Update()
 {
+	bool retval;
+
 	if(num_training_units_remaining == 0)
 	{
 		state = BEATEN;
 		display_code = 'g';
 		cout << display_code << " " << id_num << "has been beaten." << endl;
-		return true;
+		retval = true;
 	}
 	else if (num_training_units_remaining > 0)
 	{
-		return false;
+		retval = false;
 	}
+
+	return retval;
 }
 
 bool PokemonGym::IsBeaten()
 {
+	bool retval = false;
+
 	if(num_training_units_remaining == 0)
-		return true;
+		retval = true;
+	
+	return retval;
 }
 
 void PokemonGym::ShowStatus()

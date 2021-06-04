@@ -68,7 +68,7 @@ bool BattleArena::IsAbleToFight(double budget, unsigned int stamina)
 
 bool BattleArena::Update()
 {
-	if(num_rivals_remaining > 0)
+	if(num_rivals_remaining < 0)
 	{
 		return false;
 	}
@@ -77,6 +77,8 @@ bool BattleArena::Update()
 		state = NO_RIVALS_AVAILABLE;
 		return true;
 	}
+	
+	return false;
 }
 
 bool BattleArena::IsBeaten()

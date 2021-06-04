@@ -2,51 +2,51 @@
 
 Pokemon::Pokemon():GameObject('P') 
 {
-	stamina_points_to_buy = 0;
-	training_units_to_buy = 0;
-	pokemon_dollars = 0;
-	experience_points = 0;
-	speed = 5;
-	stamina = 20;
+	this -> stamina_points_to_buy = 0;
+	this -> training_units_to_buy = 0;
+	this -> pokemon_dollars = 0;
+	this -> experience_points = 0;
+	this -> speed = 5;
+	this -> stamina = 20;
 	cout << "Pokemon default constructed." << endl;
 }
 
 Pokemon::Pokemon(char in_code):GameObject('P')
 {
-	stamina_points_to_buy = 0;
-	training_units_to_buy = 0;
-	pokemon_dollars = 0;
-	experience_points = 0;
-	speed = 5;
-	stamina = 20;
-	state = STOPPED;
-	display_code = in_code;
+	this -> stamina_points_to_buy = 0;
+	this -> training_units_to_buy = 0;
+	this -> pokemon_dollars = 0;
+	this -> experience_points = 0;
+	this -> speed = 5;
+	this -> stamina = 20;
+	this -> state = STOPPED;
+	this -> display_code = in_code;
 	cout << "Pokemon Constructed." << endl;
-	health = 20;
-	store_health = 20;
-	physical_damage = 5;
-	magical_damage = 4;
-	defense = 15;
-	stamina = 20;
+	this -> health = 20;
+	this -> store_health = 20;
+	this -> physical_damage = 5;
+	this -> magical_damage = 4;
+	this -> defense = 15;
+	this -> stamina = 20;
 }
 
 Pokemon::Pokemon(string in_name, double in_speed, double hp, double phys_dmg, double magic_dmg, double def, int in_id, char in_code, Point2D in_loc):GameObject(in_loc, in_id, 'P')
 {
-	stamina_points_to_buy = 0;
-	training_units_to_buy = 0;
-	pokemon_dollars = 0;
-	experience_points = 0;
-	stamina = 20;
-	name = in_name;
-	display_code = in_code;
-	state = STOPPED;
+	this -> stamina_points_to_buy = 0;
+	this -> training_units_to_buy = 0;
+	this -> pokemon_dollars = 0;
+	this -> experience_points = 0;
+	this -> stamina = 20;
+	this -> name = in_name;
+	this -> display_code = in_code;
+	this -> state = STOPPED;
 	cout << "Pokemon Constructed." << endl;
-	health = hp;
-	store_health = hp;
-	physical_damage = phys_dmg;
-	magical_damage = magic_dmg;
-	defense = def;
-	speed = in_speed;
+	this -> health = hp;
+	this -> store_health = hp;
+	this -> physical_damage = phys_dmg;
+	this -> magical_damage = magic_dmg;
+	this -> defense = def;
+	this -> speed = in_speed;
 }
 
 Pokemon::~Pokemon()
@@ -56,10 +56,14 @@ Pokemon::~Pokemon()
  
 void Pokemon::StartMoving(Point2D dest)
 {
-	if( this -> location.x == dest.x && this -> location.y == dest.y)
+	if( this -> location.x == dest.x && this -> location.y == dest.y){
 		cout << this -> display_code << " " << this -> id_num  << ": I'm already there. See?" << endl;
-	else if (this -> IsExhausted())
+		state = STOPPED; 
+	}
+	else if (this -> IsExhausted()){
 		cout << this -> display_code << " " << this -> id_num << ": I am exhausted. I may move but you cannot see me." << endl;
+		state = EXHAUSTED;	
+	}
 	else
 	{
 		Pokemon::SetupDestination(dest);
@@ -73,10 +77,13 @@ void Pokemon::StartMovingToCenter(PokemonCenter* center)
 	if (this -> IsExhausted())
 	{
 		cout << this -> display_code << " " << this -> id_num << ": I am exhausted, so I can't move to recover stamina." << endl;
+		state = EXHAUSTED;	
+
 	}
 	else if( this -> location.x == center->GetLocation().x && this -> location.y == center->GetLocation().y )
 	{
 		cout << display_code << " " << id_num << ": I'm already at the Pokemon Center!" << endl;
+		state = STOPPED; 
 	}
 	else
 	{
@@ -95,16 +102,20 @@ void Pokemon::StartMovingToGym(PokemonGym* gym) // double check if statmenets --
 	if (IsExhausted())
 	{
 		cout << this -> display_code << " " << this -> id_num << ": I am exhausted. So I shouldn't be going to the gym" << endl;
+		this -> state = EXHAUSTED;	
+
 	}
 	else if( this -> location.x == gym -> GetLocation().x && this -> location.y == gym -> GetLocation().y)
 	{
 		cout << this -> display_code << " " << this -> id_num << ": I'm already at the Pokemon Gym!" << endl;
+		this -> state = STOPPED; 
+
 	}
 	else
 	{	
 		this -> current_gym = gym;
 		Pokemon::SetupDestination(gym -> GetLocation());
-		state = MOVING_TO_GYM;
+		this -> state = MOVING_TO_GYM;
 		cout << this -> display_code << " " << this -> id_num << ": On my way to gym" << gym -> GetId() << endl;
 	}
 }
@@ -119,7 +130,9 @@ void Pokemon::StartTraining(unsigned int num_training_units) // double check if 
 	{
 		if(IsExhausted())
 		{
-			cout << this -> display_code << " " << this -> id_num << "I am so exhausted, so no more training for me." << endl;
+			cout << this -> display_code << " " << this -> id_num << "I am so exhausted, so no more training for me." << endl;\
+			this -> state = EXHAUSTED;	
+
 		}
 		else if (!current_gym -> IsAbleToTrain(num_training_units, pokemon_dollars, stamina)) //if not enough stamina or dollars
 		{
@@ -130,7 +143,8 @@ void Pokemon::StartTraining(unsigned int num_training_units) // double check if 
 			cout << this -> display_code << " " << this -> id_num << "Cannot train! This gym is already beaten!" << endl;
 		}
 		else
-		{	state = TRAINING_IN_GYM;
+		{	
+			this -> state = TRAINING_IN_GYM;
 
 			cout << this -> display_code << ": " << "Started to train at Pokemon Gym " << current_gym -> GetId() 
 			<< "with " << current_gym -> GetNumTrainingUnitsRemaining() << "training units." << endl;
@@ -162,7 +176,7 @@ void Pokemon::StartRecoveringStamina(unsigned int num_stamina_points) // double 
 		}
 		else
 		{
-			state = RECOVERING_STAMINA;
+			this -> state = RECOVERING_STAMINA;
 			cout << this -> display_code << " " << this -> id_num << ":" << "Started recovering" << num_stamina_points << "stamina points at Pokemon Center" << current_center -> GetId();
 			stamina_points_to_buy = min(num_stamina_points, current_center -> GetNumStaminaPointsRemaining());
 		}
@@ -172,24 +186,33 @@ void Pokemon::StartRecoveringStamina(unsigned int num_stamina_points) // double 
 
 void Pokemon::Stop()
 {
-	state = STOPPED;
+	this -> state = STOPPED;
 	cout << display_code << " " << id_num << " : Stopping..." << endl;
 }
 
 bool Pokemon::IsExhausted()
 {
+	bool retval;
+
 	if(this -> stamina == 0)
 	{
-		return true;
+		this -> state = EXHAUSTED;
+		retval = true;
 	}
+	
+	return retval;
 }
 
 bool Pokemon::ShouldBeVisible()
 {
+	bool retval;
+
 	if(state != EXHAUSTED)
 	{
-		return true;
+		retval = true;
 	}
+
+	return retval;
 }
 
 void Pokemon::ShowStatus()
@@ -272,11 +295,12 @@ void Pokemon::ShowStatus()
 
 bool Pokemon::Update() //function
 {
+	bool retval; 
 	switch (state)
 	{
 		case STOPPED: //pokemon does nothing --> showstatus print stopped //fix pokemon::showstatus to this -> showstatus
 			Pokemon::ShowStatus();
-			return false;
+			retval = false;
 			break;
 
 		case MOVING: //showstatus prints --> "moving at a speed of [speed] to destination <x,y> at each step of (delta)"
@@ -285,7 +309,7 @@ bool Pokemon::Update() //function
 			if( this -> location.x == destination.x && this -> location.y == destination.y)
 			{	
 				state = STOPPED;
-				return true;
+				retval = true;
 			}
 			else
 			{
@@ -324,7 +348,7 @@ bool Pokemon::Update() //function
 			{
 				state = IN_CENTER;
 				current_center -> AddOnePokemon();
-				return true;
+				retval = true;
 			}
 			else
 			{
@@ -350,9 +374,9 @@ bool Pokemon::Update() //function
 
 			if( this -> location.x == destination.x && this -> location.y == destination.y)
 			{
-				state = IN_GYM;
-				current_gym -> AddOnePokemon();
-				return true;
+				this -> state = IN_GYM;
+				this -> current_gym -> AddOnePokemon();
+				retval = true;
 			}
 			else
 			{
@@ -364,14 +388,14 @@ bool Pokemon::Update() //function
 
 		case IN_CENTER: //showstatus prints inside pokemon center (current center id)
 			Pokemon::ShowStatus();
-			is_in_center = true;
-			return false;
+			this -> is_in_center = true;
+			retval = false;
 			break;
 		
 		case IN_GYM: //show status prints inside pokemon gym (current gym id)
 			Pokemon::ShowStatus();
-			is_in_gym = false;
-			return false;
+			this -> is_in_gym = false;
+			retval = false;
 			break;
 		
 		case TRAINING_IN_GYM: //showstatus prints training in pokemongym (Current gym id)
@@ -384,7 +408,7 @@ bool Pokemon::Update() //function
 			cout << "** " << this -> name << "gained " <<  current_gym -> TrainPokemon( training_units_to_buy ) << "experience point(s)!" << endl;
 
 			state = IN_GYM; 
-			return true;
+			retval = true;
 			break;
 		
 		case RECOVERING_STAMINA: //showstatus prints recovering stamina in PK center //follow manual 
@@ -397,13 +421,13 @@ bool Pokemon::Update() //function
 			<< " stamina point(s)!" << endl;
 			state = IN_CENTER;
 
-			return true;
+			retval = true;
 
 			break;
 		case FAINTED:
 			this -> state = FAINTED;
 
-			return false;
+			retval = false;
 
 			break;
 		case MOVING_TO_ARENA:
@@ -412,19 +436,19 @@ bool Pokemon::Update() //function
 
 			if(this -> is_in_center)
 			{
-				current_center -> RemoveOnePokemon();
+				this-> current_center -> RemoveOnePokemon();
 			}
 
 			if(this -> is_in_gym)
 			{
-				current_gym -> RemoveOnePokemon();
+				this -> current_gym -> RemoveOnePokemon();
 			}
 
 			if( this -> location.x == destination.x && this -> location.y == destination.y)
 			{
-				state = IN_ARENA;
-				current_arena-> AddOnePokemon();
-				return true;
+				this -> state = IN_ARENA;
+				this -> current_arena-> AddOnePokemon();
+				retval = true;
 			}
 			else
 			{
@@ -448,9 +472,11 @@ bool Pokemon::Update() //function
 			}
 			break;
 		default:
-			return false;
+			retval = false;
 			break;
 	}
+
+	return retval;
 }
 
 bool Pokemon::UpdateLocation() 

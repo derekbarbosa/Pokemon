@@ -39,7 +39,7 @@ int main()
 	cout << " " << endl;
 	cout << "EC327: Introduction to Software Engineering" << endl;
 	cout << "Fall 2019" << endl;
-	cout << "Programming Assignment 3" << endl;
+	cout << "Programming Assignment 4" << endl;
 	cout << "Derek Barbosa, U66315658" << endl;                    
 	cout << " --------------------------------------------------------------------------------- " << endl;
 	cout << " " << endl;

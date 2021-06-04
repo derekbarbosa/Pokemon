@@ -59,22 +59,27 @@ void Rival::TakeHit(double physical_damage, double magical_damage, double defens
 
 bool Rival::Update() //as stated in manual
 {
+	bool retval = 0;
 	switch (this -> state)
 	{
 		case ALIVE_RIVAL:
-			return false;
+			retval = false;
 			break;
 		case FAINTED_RIVAL:
-			return true;
+			retval = true;
 	}
+
+	return retval;
 }
 
 bool Rival::ShouldBeVisible()
 {
+	bool retval = 0;
 	if(state != FAINTED_RIVAL)
 	{
-		return true;
+		retval = true;
 	}
+	return retval;
 }
 
 string Rival::get_name()

@@ -3,7 +3,7 @@
 Model::Model()
 {
 	//no longer needed --> only time 
-	time = 0;
+	this -> time = 0;
 
 	//create 5 point2D objects with addresses corresponding to where each obj is located (object parameters require points!)
 	Point2D point1 = Point2D(5,1); //pk ptr1
@@ -19,30 +19,30 @@ Model::Model()
 	Pokemon* P2 = new Pokemon("Bulbasaur",5, 20, 5 ,4 , 15,  2, 'P', point2);
 
 	//PK Pointers Array Initialization
-	pokemon_ptrss.push_back(P1);
-	pokemon_ptrss.push_back(P2);
+	this -> pokemon_ptrss.push_back(P1);
+	this -> pokemon_ptrss.push_back(P2);
 
 	//OBJ Pointers for Pokemon Center
 	PokemonCenter* C1 = new PokemonCenter(1, 1, 100, point3);
 	PokemonCenter* C2 = new PokemonCenter(2, 2, 200, point4);
 
 	//Center Pointers Array Initialization
-	center_ptrss.push_back(C1);
-	center_ptrss.push_back(C2);
+	this -> center_ptrss.push_back(C1);
+	this -> center_ptrss.push_back(C2);
 
 	//OBJ pointers for Pokemon Gym
 	PokemonGym* G1 = new PokemonGym(10, 1, 2, 3, 1, point5);
 	PokemonGym* G2 = new PokemonGym(20, 5, 7.5, 8, 2, point6);
 
 	//Gym pointers array Initialization
-	gym_ptrss.push_back(G1);
-	gym_ptrss.push_back(G2);
+	this -> gym_ptrss.push_back(G1);
+	this -> gym_ptrss.push_back(G2);
 
 	//OBJ pointers for Battle Arena
 	BattleArena* B1 = new BattleArena(3, 3, 4, 1, point7);
 
 	//Battle Arena Array Initialization
-	arena_ptrss.push_back(B1);
+	this -> arena_ptrss.push_back(B1);
 
 	//OBJ Pointers for Rivals
 	Rival* R1 = new Rival("Rival Densmore", 5, 1, point7);
@@ -50,33 +50,32 @@ Model::Model()
 	Rival* R3 = new Rival("Rival Miguel",5 , 3, point7);
 
 	//Rival list initalization
-	rival_ptrss.push_back(R1);
-	rival_ptrss.push_back(R2);
+	this -> rival_ptrss.push_back(R1);
+	this -> rival_ptrss.push_back(R2);
+	this -> rival_ptrss.push_back(R3);
 
 	//obj ptrs in list format --> all contents push front to back
-	object_ptrss.push_back(P1);
-	object_ptrss.push_back(P2);
-	object_ptrss.push_back(C1);
-	object_ptrss.push_back(C2);
-	object_ptrss.push_back(G1);
-	object_ptrss.push_back(G2);
-	object_ptrss.push_back(B1);
-	object_ptrss.push_back(R1);
-	object_ptrss.push_back(R2);
-	object_ptrss.push_back(R3);
+	this -> object_ptrss.push_back(P1);
+	this -> object_ptrss.push_back(P2);
+	this -> object_ptrss.push_back(C1);
+	this -> object_ptrss.push_back(C2);
+	this -> object_ptrss.push_back(G1);
+	this -> object_ptrss.push_back(G2);
+	this -> object_ptrss.push_back(B1);
+	this -> object_ptrss.push_back(R1);
+	this -> object_ptrss.push_back(R2);
+	this -> object_ptrss.push_back(R3);
 
-	active_ptrs.push_back(P1);
-	active_ptrs.push_back(P2);
-	active_ptrs.push_back(C1);
-	active_ptrs.push_back(C2);
-	active_ptrs.push_back(G1);
-	active_ptrs.push_back(G2);
-	active_ptrs.push_back(B1);
-	active_ptrs.push_back(R1);
-	active_ptrs.push_back(R2);
-	active_ptrs.push_back(R3);
-
-
+	this -> active_ptrs.push_back(P1);
+	this -> active_ptrs.push_back(P2);
+	this -> active_ptrs.push_back(C1);
+	this -> active_ptrs.push_back(C2);
+	this -> active_ptrs.push_back(G1);
+	this -> active_ptrs.push_back(G2);
+	this -> active_ptrs.push_back(B1);
+	this -> active_ptrs.push_back(R1);
+	this -> active_ptrs.push_back(R2);
+	this -> active_ptrs.push_back(R3);
 
 	cout << "Model default constructed" << endl;
 }
@@ -86,7 +85,7 @@ Model::~Model()
 {
 	list <GameObject*>::iterator i;
 
-	for (i = object_ptrss.begin();i != object_ptrss.end(); i++) //for loop iterates through array of objects[num_objects] and deletes each one
+	for (i = this -> object_ptrss.begin();i != this -> object_ptrss.end(); i++) //for loop iterates through array of objects[num_objects] and deletes each one
 	{
 		delete *i; //because the list is a pointer to objects, we must deref the value!
 	}
@@ -105,7 +104,7 @@ Pokemon* Model::GetPokemonPtr(int id)
 
 	list <Pokemon*>::iterator i;
 
-	for(i = pokemon_ptrss.begin(); i != pokemon_ptrss.end(); i++) //comparison operator '<' doesnt work.. so we have to use !=
+	for(i = this -> pokemon_ptrss.begin(); i != this -> pokemon_ptrss.end(); i++) //comparison operator '<' doesnt work.. so we have to use !=
 	{
 		if( (*i) -> GetId() == id) //DEREFERENCE TO OBTAIN VALUE!
 		{
@@ -120,7 +119,7 @@ PokemonCenter* Model::GetPokemonCenterPtr(int id)
 {
 	list <PokemonCenter*>::iterator i;
 
-	for(i = center_ptrss.begin(); i != center_ptrss.end() ; i++)
+	for(i = this -> center_ptrss.begin(); i != this -> center_ptrss.end() ; i++)
 	{
 		if((*i) -> GetId() == id)
 		{
@@ -135,7 +134,7 @@ PokemonGym* Model::GetPokemonGymPtr(int id)
 {
 	list <PokemonGym*>::iterator i;
 
-	for(i = gym_ptrss.begin() ; i != gym_ptrss.end(); i++)
+	for(i = this -> gym_ptrss.begin() ; i != this -> gym_ptrss.end(); i++)
 	{
 		if((*i) -> GetId() == id)
 		{
@@ -150,7 +149,7 @@ Rival* Model::GetRivalPtr(int id)
 {
 	list <Rival*>::iterator i;
 
-	for(i = rival_ptrss.begin(); i != rival_ptrss.end() ; i++)
+	for(i = this -> rival_ptrss.begin(); i != this -> rival_ptrss.end() ; i++)
 	{
 		if((*i) -> GetId() == id)
 		{
@@ -165,7 +164,7 @@ BattleArena* Model::GetArenaPtr(int id)
 {
 	list <BattleArena*>::iterator i;
 
-	for (i = arena_ptrss.begin(); i != arena_ptrss.end(); i++)
+	for (i = this -> arena_ptrss.begin(); i != this -> arena_ptrss.end(); i++)
 	{
 		if((*i) -> GetId() == id)
 		{
@@ -181,34 +180,9 @@ bool Model::Update()
 {
 	time++; //time increments regardless
 
-	for(list <GameObject*>::iterator i = active_ptrs.begin(); i != active_ptrs.end(); i++) //for loop, iterates through array of object ptrs and updates them using gameobject update
-	{
-		(*i) -> Update(); //updates each gameobject first 
-
-		if((*i) -> Update() == true) // then does a for loop to see if they return true or not --> StackOverflow
-		{
-			return true; //done according to manual
-		}
-		else
-		{
-			return false; //manual said  "generally, if same state, return false"
-		}
-	}
-
-	//check if objects are alive!
-
-	for(list<GameObject*>::iterator i = active_ptrs.begin(); i!=active_ptrs.end(); i++)
-	{
-		if((*i) -> GetState() == FAINTED) //if state is fainted!
-		{
-			i = active_ptrs.erase(i); //pulled from StackOverflow, you need to set i = erase(i), so iterator location can be moved to the object after you erased
-			cout << "\tDead Object Removed" << endl;
-		}
-	}
-
 	//check if all gyms are beaten!
 
-	for(list <PokemonGym*>::iterator i = gym_ptrss.begin(); i != gym_ptrss.end(); i++)
+	for(list <PokemonGym*>::iterator i = this -> gym_ptrss.begin(); i != this -> gym_ptrss.end(); i++)
 	{
 		bool winGame = true; //boolean value that "flips" depending on whether or not all gyms have been beaten
 
@@ -230,7 +204,7 @@ bool Model::Update()
 	}
 
 	//check if all pokemon are exhausted!
-	for(list <Pokemon*>::iterator i = pokemon_ptrss.begin(); i != pokemon_ptrss.end(); i++)
+	for(list <Pokemon*>::iterator i = this -> pokemon_ptrss.begin(); i != this -> pokemon_ptrss.end(); i++)
 	{
 
 		bool loseGame = true; //boolean value that "flips" depending on whether or not all pk have been exhausted
@@ -252,15 +226,42 @@ bool Model::Update()
 		}
 	}
 
+	//check if objects are alive!
+
+	for(list<GameObject*>::iterator i = this -> active_ptrs.begin(); i!= this -> active_ptrs.end(); i++)
+	{
+		if((*i) -> GetState() == FAINTED) //if state is fainted!
+		{
+			i = active_ptrs.erase(i); //pulled from StackOverflow, you need to set i = erase(i), so iterator location can be moved to the object after you erased
+			cout << "\tDead Object Removed" << endl;
+		}
+	}
+
+	bool retval;
+	for(list <GameObject*>::iterator i = this -> active_ptrs.begin(); i != this -> active_ptrs.end(); i++) //for loop, iterates through array of object ptrs and updates them using gameobject update
+	{
+		(*i) -> Update(); //updates each gameobject first 
+
+		if((*i) -> Update() == true) // then does a for loop to see if they return true or not --> StackOverflow
+		{
+			retval = true; //done according to manual
+		}
+		else
+		{
+			retval = false; //manual said  "generally, if same state, return false"
+		}
+	}
+
+	return retval;
 }
 
 void Model::Display(View& view)
 {
-	cout << "time:" << time << endl;
+	cout << "time:" << this -> time << endl;
 
 	view.Clear(); //prepare the grid
 
-	for (list <GameObject*>::iterator i = active_ptrs.begin(); i != active_ptrs.end(); i++) //plot all objects for the display
+	for (list <GameObject*>::iterator i = this -> active_ptrs.begin(); i != this -> active_ptrs.end(); i++) //plot all objects for the display
 	{
 		view.Plot(*i);
 	}
@@ -270,7 +271,7 @@ void Model::Display(View& view)
 
 void Model::ShowStatus()
 {
-	for(list <GameObject*>::iterator i = object_ptrss.begin(); i != object_ptrss.end(); i++) //for loop, iterates through array of object ptrs and calls their showstatus
+	for(list <GameObject*>::iterator i = this -> object_ptrss.begin(); i != this -> object_ptrss.end(); i++) //for loop, iterates through array of object ptrs and calls their showstatus
 	{
 		(*i) -> ShowStatus(); //calls showstatus for each object
 	}
@@ -284,7 +285,7 @@ void Model::NewCommand(char type, int id, int x, int y)
 	{
 		case 'g': //new gym! //iterate through the for loop and check if ID num already exists
 		{
-			for(list <PokemonGym*>::iterator i = gym_ptrss.begin(); i != gym_ptrss.end(); i++)
+			for(list <PokemonGym*>::iterator i = this -> gym_ptrss.begin(); i != this -> gym_ptrss.end(); i++)
 			{
 				if((*i)->GetId() == id)
 				{
@@ -295,16 +296,16 @@ void Model::NewCommand(char type, int id, int x, int y)
 			PokemonGym* GymPtr = new PokemonGym(10, 1, 1, 2, id, nPoint);
 
 			//done according to manual --> push back on heap
-			gym_ptrss.push_back(GymPtr);
-			object_ptrss.push_back(GymPtr);
-			active_ptrs.push_back(GymPtr);
+			this -> gym_ptrss.push_back(GymPtr);
+			this ->	object_ptrss.push_back(GymPtr);
+			this ->	active_ptrs.push_back(GymPtr);
 			cout << "New Gym Created Successfully" << endl;
 
 			break;
 		}
 		case 'c':
 		{
-			for(list <PokemonCenter*>::iterator i = center_ptrss.begin(); i != center_ptrss.end(); i++)
+			for(list <PokemonCenter*>::iterator i = this -> center_ptrss.begin(); i != this -> center_ptrss.end(); i++)
 			{
 				if((*i)->GetId() == id)
 				{
@@ -312,15 +313,15 @@ void Model::NewCommand(char type, int id, int x, int y)
 				}
 			}
 			PokemonCenter* CenterPtr = new PokemonCenter(id, 5, 100, nPoint);
-			center_ptrss.push_back(CenterPtr);
-			object_ptrss.push_back(CenterPtr);
-			active_ptrs.push_back(CenterPtr);
+			this -> center_ptrss.push_back(CenterPtr);
+			this -> object_ptrss.push_back(CenterPtr);
+			this -> active_ptrs.push_back(CenterPtr);
 
 			break;
 		}
 		case 'p':
 		{
-			for(list <Pokemon*>::iterator i = pokemon_ptrss.begin(); i != pokemon_ptrss.end(); i++)
+			for(list <Pokemon*>::iterator i = this -> pokemon_ptrss.begin(); i != this -> pokemon_ptrss.end(); i++)
 			{
 				if((*i)->GetId() == id)
 				{
@@ -328,15 +329,15 @@ void Model::NewCommand(char type, int id, int x, int y)
 				}
 			}
 			Pokemon* PokePointer = new Pokemon("New Pokemon", 5, 20, 5, 4, 15, id, 'P', nPoint);
-			pokemon_ptrss.push_back(PokePointer);
-			object_ptrss.push_back(PokePointer);
-			active_ptrs.push_back(PokePointer);
+			this -> pokemon_ptrss.push_back(PokePointer);
+			this -> object_ptrss.push_back(PokePointer);
+			this -> active_ptrs.push_back(PokePointer);
 
 			break;
 		}
 		case 'r':
 		{
-			for(list <Rival*>::iterator i = rival_ptrss.begin(); i != rival_ptrss.end(); i++)
+			for(list <Rival*>::iterator i = this -> rival_ptrss.begin(); i != this -> rival_ptrss.end(); i++)
 			{
 				if((*i)->GetId() == id)
 				{
@@ -345,10 +346,17 @@ void Model::NewCommand(char type, int id, int x, int y)
 			}
 			Rival* RivalPtr = new Rival("New Rival", 5, id, nPoint);
 
-			rival_ptrss.push_back(RivalPtr);
-			object_ptrss.push_back(RivalPtr);
-			active_ptrs.push_back(RivalPtr);
+			this -> rival_ptrss.push_back(RivalPtr);
+			this -> object_ptrss.push_back(RivalPtr);
+			this -> active_ptrs.push_back(RivalPtr);
 			break;
+		}
+		case 'a':
+		{
+			BattleArena* ArenaPtr = new BattleArena(3,3,2.5, id, nPoint);
+			this -> object_ptrss.push_back(ArenaPtr);
+			this -> active_ptrs.push_back(ArenaPtr);
+			this -> arena_ptrss.push_back(ArenaPtr);
 		}
 		default:
 		{
